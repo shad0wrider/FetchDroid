@@ -8,9 +8,11 @@ Lost your Phone? , No Problem , we have Find my Device
 
 Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
 
+`yes the above photo is edited for my privacy`
+
 **Why FetchDroid**
 1. Works without Mobile Data or Wifi
-2. Is open source
+2. Is open source and very privacy friendly as everything is processed on your phone..EVERYTHING!
 3. Very lightweight and Simple as fck
 
 **How Do I use it**
