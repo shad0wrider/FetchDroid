@@ -64,7 +64,7 @@ class SmsReceiver : BroadcastReceiver() {
                 smsManager.sendTextMessage(phoneNumber, null, reply, null, null)
                 smsManager.sendTextMessage(phoneNumber, null, mapsloc, null, null)
                 smsManager.sendTextMessage(phoneNumber,null,wifiText,null,null)
-                smsManager.sendTextMessage(phoneNumber, null, replyprovider, null, null)
+//                smsManager.sendTextMessage(phoneNumber, null, replyprovider, null, null)
 
                 locationManager.removeUpdates(this) // Clean up
             }
