@@ -15,4 +15,8 @@ Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
 
 **How does it Work?**
 <br>
-FetchDroid uses normal GPS , the signals emitted from satellites and A-GPS (Assisted GPS) which is basically Cell tower data , Wi-Fi networks ,Bluetooth beacons (indoors),Sensor fusion (accelerometer, gyroscope, etc.)
+FetchDroid uses normal GPS , the signals emitted from satellites and
+A-GPS (Assisted GPS) which is basically Cell tower data , Wi-Fi networks ,Bluetooth beacons (indoors),Sensor fusion (accelerometer, gyroscope, etc.)
+to generate your latitude and longitude coordinates with up to 16 meters of accuracy ,all without WiFi or Data 
+
+
