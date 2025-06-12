@@ -11,6 +11,7 @@ Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
 `yes the above photo is edited for my privacy`
 
 NOTE:- 
+<br>
  You Will have to Manually go to the settings for the app by  Your Phones Settings App > Apps > FetchDroid > Permissions > Location
  and Select "Allow all the time" ,  This is due to Androids...sorry...GOOGLES api policies that don't allow third party apps this permission
  Funny cause their own CLOSED SOURCE apps have these permissions by default.
