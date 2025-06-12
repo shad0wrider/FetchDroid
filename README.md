@@ -14,6 +14,7 @@ Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
 3. Very lightweight and Simple as fck
 
 **How Do I use it**
+<br>
 To use FetchDroid , you will have to first set the CodeWord , which when sent via any number to your when
 will receive an sms reply with coordinates , a google maps link , and Wifi networks near your phone for better locating.
 
