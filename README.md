@@ -19,7 +19,9 @@ To use FetchDroid , you will have to first set the CodeWord ,
 which when sent via any number to your when
 will receive an sms reply with
 1.coordinates
+<br>
 2.a google maps link
+<br>
 3.Wifi networks near your phone for better locating.
 
 
