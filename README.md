@@ -1,3 +1,3 @@
-**FetchDroid -  An OpenSource Phone Finder **
+**FetchDroid -  An OpenSource Phone Finder**
 #
-[Image1](https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/homepage.png)
+!![Image1](https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/homepage.png)
