@@ -28,7 +28,7 @@ Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
 **How Does It Work?**
 <br>
 To use FetchDroid , you will have to first set the CodeWord , 
-which when sent via any number to your when
+which when sent via any number to your phone
 will receive an sms reply with
 <br> <br>
   **1**. coordinates
