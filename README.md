@@ -14,4 +14,4 @@ Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
 3. Very lightweight and Simple as fck
 
 **How does it Work?**
-FetchDroid uses normal GPS , the signals emitted from satellites and A-GPS (Assisted GPS) which is basically Cell tower data , Wi-Fi networks ,Bluetooth beacons (indoors),Sensor fusion (accelerometer, gyroscope, etc.)
+\nFetchDroid uses normal GPS , the signals emitted from satellites and A-GPS (Assisted GPS) which is basically Cell tower data , Wi-Fi networks ,Bluetooth beacons (indoors),Sensor fusion (accelerometer, gyroscope, etc.)
