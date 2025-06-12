@@ -10,12 +10,18 @@ Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
 
 `yes the above photo is edited for my privacy`
 
+NOTE:- 
+ You Will have to Manually go to the settings for the app by  Your Phones Settings App > Apps > FetchDroid > Permissions > Location
+ and Select "Allow all the time" ,  This is due to Androids...sorry...GOOGLES api policies that don't allow third party apps this permission
+ Funny cause their own CLOSED SOURCE apps have these permissions by default.
+
+
 **Why FetchDroid**
 1. Works without Mobile Data or Wifi
 2. Is open source and very privacy friendly as everything is processed on your phone..EVERYTHING!
 3. Very lightweight and Simple as fck
 
-**How Do I use it**
+**How Does It Work?**
 <br>
 To use FetchDroid , you will have to first set the CodeWord , 
 which when sent via any number to your when
@@ -29,7 +35,7 @@ will receive an sms reply with
 
 <br>
 
-**How does it Work?**
+**How does it Actually Work??**
 <br><br>
 FetchDroid uses normal GPS , the signals emitted from satellites and
 A-GPS (Assisted GPS) which is basically Cell tower data , nearby Wi-Fi networks ,Bluetooth beacons (indoors),Sensor fusion (accelerometer, gyroscope, etc.)
