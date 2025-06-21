@@ -1,4 +1,4 @@
-//Built by ❤️ https://github.com/shad0wrider
+//Built with ❤️ https://github.com/shad0wrider
 
 package com.fetchdroid
 
