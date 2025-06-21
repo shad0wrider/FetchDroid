@@ -1,5 +1,6 @@
 ## **FetchDroid  -  An OpenSource Phone Finder**
 
+## **Screenshots**
 <p align="center" style="margin-right:70px;">
 
   <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/FetchDroidlogo.png" width="512" height="512"/>
