@@ -15,8 +15,8 @@ FetchDroid does **not collect**:
 - Any identifiable user data
 
 What FetchDroid **does** Collect Temporarily but Does **NOT** store:
-- Scans SMS message for Activation Trigger/CodeWord
-- Location (GPS Coordinates) and Nearby Wi-Fi names when it receives the CodeWord via SMS
+- Scans SMS message for Activation Trigger/CodeWord.
+- Location (GPS Coordinates) and Nearby Wi-Fi names when it receives the CodeWord via SMS.
 
 ---
 
