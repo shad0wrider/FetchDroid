@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">fetchdroid</string>
+    <string name="why_these_permissions">Why These Permissions?</string>
+    <string name="sourcecode">View Source Code on Github</string>
+</resources>
