@@ -1,43 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="24dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
 
 
     <EditText
         android:id="@+id/codeInput"
         android:layout_width="361dp"
-        android:layout_height="wrap_content"
-        android:hint="Enter code word"
-        android:inputType="textPassword"
+        android:layout_height="66dp"
+        android:layout_marginLeft="12dp"
         android:drawableEnd="@drawable/invisible_eye"
+        android:hint="Enter CodeWord For Location"
+        android:inputType="textPassword"
         android:paddingStart="5dp"
         android:paddingEnd="27dp"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/ringInput"
+        android:layout_width="361dp"
+        android:layout_height="66dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="80dp"
+        android:drawableEnd="@drawable/invisible_eye"
+        android:hint="Enter CodeWord For Ringing"
+        android:inputType="textPassword"
+        android:paddingStart="5dp"
+        android:paddingEnd="27dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="163dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="112dp"
+        android:text="Test Ringing"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@id/saveButton"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="@id/ringInput"
+        app:layout_constraintTop_toTopOf="@id/ringInput" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Save Code Word" />
+        android:layout_marginTop="320dp"
+        android:text="Save Settings"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/whyperms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:text="@string/why_these_permissions" />
+        android:layout_marginTop="420dp"
+        android:text="@string/why_these_permissions"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/sourcecode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:text="@string/sourcecode"/>
+        android:layout_marginTop="524dp"
+        android:text="@string/sourcecode"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="159dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="148dp"
+        android:hint="Version: 1.5"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sourcecode"
+        app:layout_constraintVertical_bias="0.818"
+        tools:ignore="MissingConstraints" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
