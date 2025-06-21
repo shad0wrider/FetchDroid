@@ -10,9 +10,9 @@
 
 <br>
 <p align="center" style="margin-right:70px;">
-  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/fetchdroidlight.jpg" width="200"/>
+  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/FetchDroidDark2.jpg" width="200"/>
 
-  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/fetchdroidark.jpg" width="200"/>
+  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/FetchDroidLight2.jpg" width="200"/>
   
   <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/Fetchworks2.png" width="200"/>
 </p>
