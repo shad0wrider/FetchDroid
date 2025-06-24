@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.ACTION_BATTERY_CHANGED
 import android.content.IntentFilter
 import android.location.Location
 import android.location.LocationListener
@@ -39,6 +40,12 @@ class SmsReceiver : BroadcastReceiver() {
             }
         }
     }
+    fun getBatteryPercentage(context: Context): Int {
+        val battery = context.registerReceiver(null, IntentFilter(ACTION_BATTERY_CHANGED))
+        val level = battery?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
+        val scale = battery?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
+        return if (scale > 0 && level >= 0) (level * 100 / scale) else -1
+    }
 
     @SuppressLint("MissingPermission", "ServiceCast")
 
@@ -56,7 +63,8 @@ class SmsReceiver : BroadcastReceiver() {
                 val mains = "Getting Location\nPlease Wait..."
                 val reply = "Latitude: $lat\nLongitude: $lon"
                 val mapsloc = "https://maps.google.com/?q=${lat}%2C${lon}"
-                val replyprovider = "Provider: $geoprovider"
+                val batpercent = "Battery: ${getBatteryPercentage(context)}"
+
 
                 val smsManager = context.getSystemService(SmsManager::class.java)
 
@@ -64,7 +72,8 @@ class SmsReceiver : BroadcastReceiver() {
                 smsManager.sendTextMessage(phoneNumber, null, reply, null, null)
                 smsManager.sendTextMessage(phoneNumber, null, mapsloc, null, null)
                 smsManager.sendTextMessage(phoneNumber,null,wifiText,null,null)
-//                smsManager.sendTextMessage(phoneNumber, null, replyprovider, null, null)
+                smsManager.sendTextMessage(phoneNumber,null,batpercent,null,null)
+
 
                 locationManager.removeUpdates(this) // Clean up
             }
