@@ -36,7 +36,7 @@ Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
 2. Is open source and very privacy friendly as everything is processed on your phone..EVERYTHING!
 3. Very lightweight and Simple as fck
 
-## **How Does It Work?**
+## How Does It Work?
 <br>
 After Installing you need to set a codeword , 
 <br>
@@ -48,9 +48,9 @@ Whenever you lose your device ,
 <br>
 just send an SMS message to your phone/number with the codeword.
 and You'll get
- - coordinates
- - google maps link
- - Nearby WiFi Names
+- coordinates
+- google maps link
+- Nearby WiFi Names
  
 
 <br>
