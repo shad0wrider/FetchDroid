@@ -48,6 +48,7 @@ Whenever you lose your device ,
 <br>
 just send an SMS message to your phone/number with the codeword.
 and You'll get
+
 - coordinates
 - google maps link
 - Nearby WiFi Names
@@ -55,7 +56,7 @@ and You'll get
 
 <br>
 
-## **How does it Actually Work??**
+## How does it Actually Work??
 <br>
 FetchDroid uses normal GPS , the signals emitted from satellites and
 A-GPS (Assisted GPS) which is basically Cell tower data , nearby Wi-Fi networks ,Bluetooth beacons (indoors),Sensor fusion (accelerometer, gyroscope, etc.)
