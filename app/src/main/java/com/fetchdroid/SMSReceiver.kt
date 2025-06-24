@@ -63,7 +63,7 @@ class SmsReceiver : BroadcastReceiver() {
                 val mains = "Getting Location\nPlease Wait..."
                 val reply = "Latitude: $lat\nLongitude: $lon"
                 val mapsloc = "https://maps.google.com/?q=${lat}%2C${lon}"
-                val batpercent = "Battery: ${getBatteryPercentage(context)}"
+                val batpercent = "Battery: ${getBatteryPercentage(context)}%"
 
 
                 val smsManager = context.getSystemService(SmsManager::class.java)
