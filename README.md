@@ -37,7 +37,7 @@ Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
 3. Very lightweight and Simple as fck
 
 ## **How Does It Work?**
-<br><br>
+<br>
 After Installing you need to set a codeword , 
 <br>
 this is like a password for finding your phone
@@ -56,7 +56,7 @@ and You'll get
 <br>
 
 ## **How does it Actually Work??**
-<br><br>
+<br>
 FetchDroid uses normal GPS , the signals emitted from satellites and
 A-GPS (Assisted GPS) which is basically Cell tower data , nearby Wi-Fi networks ,Bluetooth beacons (indoors),Sensor fusion (accelerometer, gyroscope, etc.)
 to generate your latitude and longitude coordinates with up to 16 meters of accuracy ,all without connecting to WiFi or Data 
