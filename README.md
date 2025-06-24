@@ -48,7 +48,7 @@ Whenever you lose your device ,
 <br>
 just send an SMS message to your phone/number with the codeword.
 You'll get
-<br>
+<br><br>
 
 - coordinates
 - google maps link
