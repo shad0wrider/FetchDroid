@@ -48,9 +48,9 @@ Whenever you lose your device ,
 <br>
 just send an SMS message to your phone/number with the codeword.
 and You'll get
-- coordinates
-- google maps link
-- Nearby WiFi Names
+ - coordinates
+ - google maps link
+ - Nearby WiFi Names
  
 
 <br>
