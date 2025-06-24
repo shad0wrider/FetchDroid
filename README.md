@@ -47,8 +47,8 @@ after setting this code word , just close the app.
 Whenever you lose your device , 
 <br>
 just send an SMS message to your phone/number with the codeword.
-and You'll get
-
+You'll get
+<br>
 
 - coordinates
 - google maps link
