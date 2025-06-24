@@ -50,8 +50,8 @@ just send an SMS message to your phone/number with the codeword.
 You'll get
 <br><br>
 
-- coordinates
-- google maps link
+- Coordinates
+- Google maps link
 - Nearby WiFi Names
  
 
