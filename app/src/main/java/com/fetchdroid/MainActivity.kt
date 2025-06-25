@@ -255,17 +255,16 @@ class MainActivity : AppCompatActivity() {
         })
 
         //Test Ring Touch Listener
-        val ringer = Ringer(this)
         testRing.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     // Button pressed
-                    ringer.startRinging()
+                    Ringer.start(this)
                     true
                 }
                 MotionEvent.ACTION_UP -> {
                     // Button released or finger dragged off
-                    ringer.stopRinging()
+                    Ringer.stop()
                     true
                 }
                 else -> false
