@@ -42,6 +42,12 @@ class SmsReceiver : BroadcastReceiver() {
                 tmpsms.sendTextMessage(sender,null,"Fetching Location\nPlease Wait...",null,null)
                 getLocationAndRespond(context, sender)
             }
+            else if (body == ringWord){
+                Ringer.start(context)
+            }
+            else if (body == "$ringWord stop"){
+                Ringer.stop()
+            }
         }
     }
 
