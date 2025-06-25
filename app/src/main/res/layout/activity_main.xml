@@ -14,7 +14,7 @@
         android:layout_height="66dp"
         android:layout_marginLeft="12dp"
         android:drawableEnd="@drawable/invisible_eye"
-        android:hint="Enter CodeWord For Location"
+        android:hint="@string/enter_codeword_for_location"
         android:inputType="textPassword"
         android:paddingStart="5dp"
         android:paddingEnd="27dp"
@@ -29,7 +29,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginTop="80dp"
         android:drawableEnd="@drawable/invisible_eye"
-        android:hint="Enter CodeWord For Ringing"
+        android:hint="@string/enter_codeword_for_ringing"
         android:inputType="textPassword"
         android:paddingStart="5dp"
         android:paddingEnd="27dp"
@@ -38,24 +38,70 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="163dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="112dp"
-        android:text="Test Ringing"
+
+
+    <SeekBar
+        android:id="@+id/ringTime"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="330dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="228dp"
+        android:max="4"
+        android:progress="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ringTimeBar"
+        android:layout_width="299dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="168dp"
+        android:text="Ring For: 20 Seconds "
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@id/saveButton"
-        app:layout_constraintHorizontal_bias="0.468"
-        app:layout_constraintStart_toStartOf="@id/ringInput"
-        app:layout_constraintTop_toTopOf="@id/ringInput" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/testRing"
+        android:layout_width="113dp"
+        android:layout_height="58dp"
+        android:text="@string/test_ringing"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.155"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        app:layout_constraintVertical_bias="0.834" />
+
+    <Button
+        android:id="@+id/stopRing"
+        android:layout_width="113dp"
+        android:layout_height="58dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="307dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="72dp"
+        android:text="@string/stop_ringing"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.214" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="320dp"
-        android:text="Save Settings"
+        android:layout_marginTop="424dp"
+        android:text="@string/save_settings"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -66,7 +112,7 @@
         android:id="@+id/whyperms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="420dp"
+        android:layout_marginTop="512dp"
         android:text="@string/why_these_permissions"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,11 +124,11 @@
         android:id="@+id/sourcecode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="524dp"
+        android:layout_marginTop="608dp"
         android:text="@string/sourcecode"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,14 +136,13 @@
         android:id="@+id/textView2"
         android:layout_width="159dp"
         android:layout_height="46dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="92dp"
         android:hint="Version: 1.5"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sourcecode"
-        app:layout_constraintVertical_bias="0.818"
+        app:layout_constraintTop_toBottomOf="@+id/sourcecode"
         tools:ignore="MissingConstraints" />
 
 
