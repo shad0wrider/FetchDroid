@@ -43,7 +43,11 @@ class SmsReceiver : BroadcastReceiver() {
                 getLocationAndRespond(context, sender)
             }
             else if (body == ringWord){
-                Ringer.start(context)
+                Thread{
+                    Ringer.start(context)
+                    Thread.sleep(ringTime.toLong())
+                    Ringer.stop()
+                }
             }
             else if (body == "$ringWord stop"){
                 Ringer.stop()
