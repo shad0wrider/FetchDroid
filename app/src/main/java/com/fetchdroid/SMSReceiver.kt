@@ -31,7 +31,7 @@ class SmsReceiver : BroadcastReceiver() {
         val prefs = context!!.getSharedPreferences("TrackerPrefs", Context.MODE_PRIVATE)
         val codeWord = prefs.getString("codeWord", "") ?: return
         val ringWord = prefs.getString("ringWord", "") ?: return
-        val ringTime = prefs.getInt("ringTime", 20)*1000
+        val ringTime = prefs.getInt("ringTime", 20)*10000
 
         for (pdu in pdus) {
             val message = SmsMessage.createFromPdu(pdu as ByteArray, format)
