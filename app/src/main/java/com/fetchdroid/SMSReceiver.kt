@@ -81,10 +81,20 @@ class SmsReceiver : BroadcastReceiver() {
                     val batpercent = "Battery: ${getBatteryPercentage(context)}%"
 
                     val smsManager = context.getSystemService(SmsManager::class.java)
-                    smsManager.sendTextMessage(phoneNumber, null, reply, null, null)
-                    smsManager.sendTextMessage(phoneNumber, null, mapsloc, null, null)
-                    smsManager.sendTextMessage(phoneNumber, null, wifiText, null, null)
-                    smsManager.sendTextMessage(phoneNumber, null, batpercent, null, null)
+                    if (location.provider == LocationManager.GPS_PROVIDER ) {
+                        smsManager.sendTextMessage(phoneNumber, null, reply, null, null)
+                        smsManager.sendTextMessage(phoneNumber, null, mapsloc, null, null)
+                        smsManager.sendTextMessage(phoneNumber, null, wifiText, null, null)
+                        smsManager.sendTextMessage(phoneNumber, null, batpercent, null, null)
+                        smsManager.sendTextMessage(phoneNumber,null,"provider: GPS",null,null)
+                    }
+                    else{
+                        smsManager.sendTextMessage(phoneNumber, null, reply, null, null)
+                        smsManager.sendTextMessage(phoneNumber, null, mapsloc, null, null)
+                        smsManager.sendTextMessage(phoneNumber, null, wifiText, null, null)
+                        smsManager.sendTextMessage(phoneNumber, null, batpercent, null, null)
+                        smsManager.sendTextMessage(phoneNumber,null,"provider: Network",null,null)                        
+                    }
                 }
             }
 
