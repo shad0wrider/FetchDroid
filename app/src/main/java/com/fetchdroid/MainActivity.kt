@@ -288,15 +288,15 @@ class MainActivity : AppCompatActivity() {
         val vercode = findViewById<TextView>(R.id.vercode)
         vercode.setOnClickListener {
             //Listening for Ring Events
-            var event1 = ringevents.decode("QnVpbHQgYnkgc2hhZDB3cmlkZXIK",ringevents.DEFAULT)
-            var event2 = ringevents.decode("VGhpcyBhcHAgd2FzIGJ1aWx0IGJ5IHNoYWQwd3JpZGVyCg"+"==",ringevents.DEFAULT)
-            var event3 = ringevents.decode("VmlldyB0aGUgT3JpZ2luYWwgU291cmNlIGF0Cg"+"==",ringevents.DEFAULT)
-            var event4 = ringevents.decode("aHR0cHM6Ly9naXRodWIuY29tL3NoYWQwd3JpZGVyL0ZldGNoRHJvaWQK",ringevents.DEFAULT)
+            var event1 = String(ringevents.decode("QnVpbHQgYnkgc2hhZDB3cmlkZXIK",ringevents.DEFAULT))
+            var event2 = String(ringevents.decode("VGhpcyBhcHAgd2FzIGJ1aWx0IGJ5IHNoYWQwd3JpZGVyCg"+"==",ringevents.DEFAULT))
+            var event3 = String(ringevents.decode("VmlldyB0aGUgT3JpZ2luYWwgU291cmNlIGF0Cg"+"==",ringevents.DEFAULT))
+            var event4 = String(ringevents.decode("aHR0cHM6Ly9naXRodWIuY29tL3NoYWQwd3JpZGVyL0ZldGNoRHJvaWQK",ringevents.DEFAULT))
             
-            if (eventcheck < 3){
+            if (eventcheck < 5){
                 eventcheck = eventcheck + 1
             }
-            else if (eventcheck == 3){
+            else if (eventcheck == 5){
                 AlertDialog.Builder(this)
                     .setTitle(event1.toString())
                     .setMessage("${event2.toString()}\n${event3.toString()}\n${event4.toString()}")
