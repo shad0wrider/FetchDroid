@@ -16,46 +16,37 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
-//Built by ❤️ https://github.com/shad0wrider
+//Built with By ❤️ https://github.com/shad0wrider
 
 package com.fetchdroid
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.ActivityManager
 import android.app.AlertDialog
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.media.AudioAttributes
-import android.media.AudioManager
-import android.media.MediaPlayer
 import android.net.Uri
+import android.util.Base64 as ringevents
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.text.InputType
 import android.view.MotionEvent
-import android.view.View
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.edit
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintSet
-import com.fetchdroid.R
-import java.util.concurrent.Executor
+import androidx.core.content.edit
 import androidx.core.net.toUri
+import com.fetchdroid.Ringer
+import java.util.concurrent.Executor
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -71,6 +62,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ringTimeBar: TextView
     private lateinit var saveButton: Button
     private lateinit var testRing: Button
+    private lateinit var stopRing: Button
 
     private val PREFS_NAME = "TrackerPrefs"
     private val CODE_KEY = "codeWord"
@@ -132,6 +124,7 @@ class MainActivity : AppCompatActivity() {
         ringTime = findViewById(R.id.ringTime)
         ringTimeBar = findViewById(R.id.ringTimeBar)
         testRing = findViewById<Button>(R.id.testRing)
+        stopRing = findViewById(R.id.stopRing)
 
         val tmptext = ringcal().toString()
 
@@ -147,6 +140,8 @@ class MainActivity : AppCompatActivity() {
         val ringVal = ringcal()
 
         val isRinging = false
+
+        var eventcheck = 0
 
         val sourcecode = findViewById<Button>(R.id.sourcecode)
 
@@ -289,12 +284,35 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        //Test Ring Event Listener
+        val vercode = findViewById<TextView>(R.id.vercode)
+        vercode.setOnClickListener {
+            //Listening for Ring Events
+            var event1 = ringevents.decode("QnVpbHQgYnkgc2hhZDB3cmlkZXIK",ringevents.DEFAULT)
+            var event2 = ringevents.decode("VGhpcyBhcHAgd2FzIGJ1aWx0IGJ5IHNoYWQwd3JpZGVyCg"+"==",ringevents.DEFAULT)
+            var event3 = ringevents.decode("VmlldyB0aGUgT3JpZ2luYWwgU291cmNlIGF0Cg"+"==",ringevents.DEFAULT)
+            var event4 = ringevents.decode("aHR0cHM6Ly9naXRodWIuY29tL3NoYWQwd3JpZGVyL0ZldGNoRHJvaWQK",ringevents.DEFAULT)
+            
+            if (eventcheck < 3){
+                eventcheck = eventcheck + 1
+            }
+            else if (eventcheck == 3){
+                AlertDialog.Builder(this)
+                    .setTitle(event1.toString())
+                    .setMessage("${event2.toString()}\n${event3.toString()}\n${event4.toString()}")
+                    .setPositiveButton("ok") {_, _ ->
+                        null
+                    }.show()
 
-        //Stop Ringing Button Listener
+            }
+        }
+
+        //Stop Ringing Button
         stopRing.setOnClickListener {
             Ringer.stop()
             Toast.makeText(this,"Ringing Stopped",Toast.LENGTH_SHORT).show()
         }
+
 
 
         // Request permissions
@@ -368,6 +386,3 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 }
-
-
-
