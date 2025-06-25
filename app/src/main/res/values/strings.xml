@@ -2,4 +2,9 @@
     <string name="app_name">fetchdroid</string>
     <string name="why_these_permissions">Why These Permissions?</string>
     <string name="sourcecode">View Source Code on Github</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="stop_ringing">Stop Ringing</string>
+    <string name="test_ringing">Test Ringing</string>
+    <string name="enter_codeword_for_location">Enter CodeWord For Location</string>
+    <string name="enter_codeword_for_ringing">Enter CodeWord For Ringing</string>
 </resources>
