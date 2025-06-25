@@ -5,12 +5,14 @@ import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
 
-class Ringer(private val context: Context) {
+object Ringer {
 
     private var mediaPlayer: MediaPlayer? = null
+    var isPlaying: Boolean = false
+        private set
 
-    fun startRinging() {
-        if (mediaPlayer != null) return // already playing
+    fun start(context: Context) {
+        if (isPlaying) return
 
         val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
@@ -26,13 +28,16 @@ class Ringer(private val context: Context) {
             isLooping = true
             start()
         }
+
+        isPlaying = true
     }
 
-    fun stopRinging() {
+    fun stop() {
         mediaPlayer?.apply {
             stop()
             release()
         }
         mediaPlayer = null
+        isPlaying = false
     }
 }
