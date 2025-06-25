@@ -271,6 +271,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //Stop Ringing Button Listener
+        stopRing.setOnClickListener {
+            Ringer.stop()
+            Toast.makeText(this,"Ringing Stopped",Toast.LENGTH_SHORT).show()
+        }
+
 
         // Request permissions
         ActivityCompat.requestPermissions(
