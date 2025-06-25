@@ -1,4 +1,4 @@
-//Built with ❤️ https://github.com/shad0wrider
+//Built by ❤️ https://github.com/shad0wrider
 
 package com.fetchdroid
 
@@ -11,15 +11,21 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.media.AudioAttributes
+import android.media.AudioManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.text.InputType
 import android.view.MotionEvent
+import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.SeekBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.edit
@@ -27,6 +33,7 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintSet
 import com.fetchdroid.R
 import java.util.concurrent.Executor
 import androidx.core.net.toUri
@@ -41,11 +48,15 @@ class MainActivity : AppCompatActivity() {
     // Code Input
     private lateinit var codeInput: EditText
     private lateinit var ringInput: EditText
+    private lateinit var ringTime: SeekBar
+    private lateinit var ringTimeBar: TextView
     private lateinit var saveButton: Button
+    private lateinit var testRing: Button
 
     private val PREFS_NAME = "TrackerPrefs"
     private val CODE_KEY = "codeWord"
     private val RING_KEY = "ringWord"
+    private val RING_TIME_KEY = "ringTime"
 
 
 
@@ -86,7 +97,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility", "MissingInflatedId")
     private fun showMainUI() {
 
 //        window.setFlags(
@@ -99,12 +110,24 @@ class MainActivity : AppCompatActivity() {
         codeInput = findViewById(R.id.codeInput)
         ringInput = findViewById<EditText>(R.id.ringInput)
         saveButton = findViewById(R.id.saveButton)
+        ringTime = findViewById(R.id.ringTime)
+        ringTimeBar = findViewById(R.id.ringTimeBar)
+        testRing = findViewById<Button>(R.id.testRing)
+
+        val tmptext = ringcal().toString()
+
+        ringTimeBar.text = "Ring For: ${tmptext} Seconds"
+
 
         val permsbutton = findViewById<Button>(R.id.whyperms)
 
         var isPasswordVisible = false
 
         var isRingVisible = false
+
+        val ringVal = ringcal()
+
+        val isRinging = false
 
         val sourcecode = findViewById<Button>(R.id.sourcecode)
 
@@ -127,6 +150,7 @@ class MainActivity : AppCompatActivity() {
             else {
             prefs.edit { putString(CODE_KEY, enteredCode) }
             prefs.edit {putString(RING_KEY, enteredringCode) }
+            prefs.edit {putInt(RING_TIME_KEY, ringVal)}
                 codeInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                 ringInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                 codeInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.invisible_eye, 0)
@@ -209,6 +233,45 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
+        //Change Listener for ring time Seekbar
+        ringTime.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(
+                seekBar: SeekBar?,
+                progress: Int,
+                fromUser: Boolean
+            ) {
+                val tmpval = ringcal().toString()
+                ringTimeBar.text = "Ring For: ${tmpval} Seconds"
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                null
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                null
+            }
+
+        })
+
+        //Test Ring Touch Listener
+        val ringer = Ringer(this)
+        testRing.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    // Button pressed
+                    ringer.startRinging()
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    // Button released or finger dragged off
+                    ringer.stopRinging()
+                    true
+                }
+                else -> false
+            }
+        }
+
 
         // Request permissions
         ActivityCompat.requestPermissions(
@@ -216,6 +279,7 @@ class MainActivity : AppCompatActivity() {
             arrayOf(
                 Manifest.permission.RECEIVE_SMS,
                 Manifest.permission.SEND_SMS,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.CHANGE_WIFI_STATE,
                 Manifest.permission.ACCESS_WIFI_STATE
@@ -243,6 +307,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun ringcal():Int{
+
+        var ringit = 0
+
+        if (ringTime.progress ==0){
+            ringit =  20
+        }
+        else if (ringTime.progress ==1){
+            ringit =  30
+        }
+        else if (ringTime.progress ==2){
+            ringit =  40
+        }
+        else if (ringTime.progress ==3){
+            ringit =  50
+        }
+        else if(ringTime.progress ==4){
+            ringit =  60
+        }
+        return ringit
+    }
+
 
     private fun alertbox(){
         AlertDialog.Builder(this)
@@ -258,3 +344,6 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 }
+
+
+
