@@ -69,8 +69,8 @@ You'll get
 - Bluetooth beacons (indoors)
 - Sensor fusion (accelerometer, gyroscope, etc.)
 
-to generate your latitude and longitude coordinates with up to 16 meters of accuracy ,
-all without connecting to WiFi or Data 
+to generate your latitude and longitude coordinates with minimum 16 meters of accuracy ,
+all **without** connecting to WiFi or Data 
 
 ## 📄 Privacy Policy
 
