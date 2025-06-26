@@ -62,7 +62,7 @@ You'll get
 1.FetchDroid uses normal GPS , the signals emitted from satellites.
 <br><br>
 2. A-GPS (Assisted GPS) which is basically:
-<br>
+<br><br>
 
 - Nearby Cell towers
 - nearby Wi-Fi networks
