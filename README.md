@@ -1,4 +1,4 @@
-# **FetchDroid  -  An OpenSource Phone Locator**
+# **FetchDroid  -  The Open Source Phone Locator**
 
 <p align="center">
 
