@@ -5,6 +5,7 @@
  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/FetchDroidlogo.png" width="512" height="512"/>
 
 </p>
+
   
 ## **Screenshots 🖼️**
 
@@ -22,6 +23,7 @@ Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
 
 `yes the above photo is edited for my privacy`
 
+---
 **NOTE:-** 
 <br>
  You Will have to Manually go to the settings for the app by going to
@@ -30,8 +32,10 @@ Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
  <br>
  This is due to Androids API policies that don't allow third party apps this permission.
 
+---
 
 ## **Why FetchDroid ❔**
+
 1. Works without Mobile Data or Wifi
 2. Is open source and very privacy friendly as everything is processed on your phone..EVERYTHING!
 3. Very lightweight and Simple as fck
