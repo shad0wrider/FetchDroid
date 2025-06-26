@@ -65,7 +65,7 @@ You'll get
 <br><br>
 
 - Nearby Cell towers
-- nearby Wi-Fi networks
+- Nearby Wi-Fi networks
 - Bluetooth beacons (indoors)
 - Sensor fusion (accelerometer, gyroscope, etc.)
 
