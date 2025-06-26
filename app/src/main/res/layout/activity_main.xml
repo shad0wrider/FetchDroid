@@ -137,7 +137,7 @@
         android:layout_width="159dp"
         android:layout_height="46dp"
         android:layout_marginTop="92dp"
-        android:hint="Version: 1.5"
+        android:hint="Version: 1.7"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
