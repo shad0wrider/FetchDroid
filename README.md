@@ -60,7 +60,6 @@ You'll get
 ## How does it Actually Work 🤔 ??
 <br>
 1.FetchDroid uses normal GPS , the signals emitted from satellites.
-
 2. A-GPS (Assisted GPS) which is basically:
 
 - Nearby Cell towers
