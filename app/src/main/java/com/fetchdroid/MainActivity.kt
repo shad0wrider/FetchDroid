@@ -290,7 +290,7 @@ class MainActivity : AppCompatActivity() {
             //Listening for Ring Events
             var event1 = String(ringevents.decode("QnVpbHQgYnkgc2hhZDB3cmlkZXIK",ringevents.DEFAULT))
             var event2 = String(ringevents.decode("VGhpcyBhcHAgd2FzIGJ1aWx0IGJ5IHNoYWQwd3JpZGVyCg"+"==",ringevents.DEFAULT))
-            var event3 = String(ringevents.decode("VmlldyB0aGUgT3JpZ2luYWwgU291cmNlIGF0Cg"+"==",ringevents.DEFAULT))
+            var event3 = String(ringevents.decode("VGhpcyBhcHAgaXMgYnVpbHQgYnkgc2hhZDB3cmlkZXIK",ringevents.DEFAULT))
             var event4 = String(ringevents.decode("aHR0cHM6Ly9naXRodWIuY29tL3NoYWQwd3JpZGVyL0ZldGNoRHJvaWQK",ringevents.DEFAULT))
             
             if (eventcheck < 5){
