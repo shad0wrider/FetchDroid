@@ -151,8 +151,10 @@ class MainActivity : AppCompatActivity() {
         codeInput.setText(savedCode)
         ringInput.setText(ringCode)
 
-        //Check if App has ACCESS_BACKGROUND_LOCATION permission
+        //Check if App has ACCESS_BACKGROUND_LOCATION permission and DISABLE BATTERY Optimization
         locationpermscheck()
+        batterypermscheck()
+
 
         //Listener for onClick Savebutton
         saveButton.setOnClickListener {
@@ -341,11 +343,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun hasBatteryOptimizationDisabled(): Boolean{
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val context = this
+            val powerManager = context.getSystemService(POWER_SERVICE) as PowerManager
+            powerManager.isIgnoringBatteryOptimizations(context.packageName)
+        } else {
+            true // Not applicable before Android 6
+        }
+
+    }
+
     private fun locationpermscheck() {
         if (hasAlwaysLocationPermission()) {
             null
         } else {
             alertbox()
+        }
+    }
+
+
+    private fun batterypermscheck(){
+        if (hasBatteryOptimizationDisabled()){
+            null
+        }
+        else {
+            batterybox()
         }
     }
 
@@ -369,6 +392,24 @@ class MainActivity : AppCompatActivity() {
             ringit =  60
         }
         return ringit
+    }
+
+    private fun batterybox(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            var context = this
+            AlertDialog.Builder(this)
+                .setTitle("Disable 'Battery Optimizations'")
+                .setMessage("To Ensure that FetchDroid Works even on DND and Bedtime Mode, Tap 'Battery' > 'Unrestricted'.")
+                .setPositiveButton("Open Settings") { _, _ ->
+                    val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
+                            data = Uri.parse("package:${context.packageName}")
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+                    context.startActivity(intent)
+                }
+                .setNegativeButton("Cancel",null)
+                .show()
+        }
     }
 
 
