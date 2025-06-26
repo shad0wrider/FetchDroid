@@ -36,7 +36,7 @@ Oh , your wifi and mobile data was off , Well FetchDroid can help with that!
 2. Is open source and very privacy friendly as everything is processed on your phone..EVERYTHING!
 3. Very lightweight and Simple as fck
 
-## How Does It Work?
+## How Does It Work ❔❔
 <br>
 After Installing you need to set a codeword , 
 <br>
