@@ -60,8 +60,10 @@ You'll get
 ## How does it Actually Work 🤔 ??
 <br>
 FetchDroid uses normal GPS , the signals emitted from satellites and
-A-GPS (Assisted GPS) which is basically Cell tower data , nearby Wi-Fi networks ,Bluetooth beacons (indoors),Sensor fusion (accelerometer, gyroscope, etc.)
-to generate your latitude and longitude coordinates with up to 16 meters of accuracy ,all without connecting to WiFi or Data 
+A-GPS (Assisted GPS) which is basically Cell tower data ,
+nearby Wi-Fi networks ,Bluetooth beacons (indoors),Sensor fusion (accelerometer, gyroscope, etc.)
+to generate your latitude and longitude coordinates with up to 16 meters of accuracy ,
+all without connecting to WiFi or Data 
 
 ## 📄 Privacy Policy
 
