@@ -6,7 +6,7 @@
 
 </p>
   
-## **Screenshots**
+## **Screenshots 🖼️**
 
 <br>
 <p align="center" style="margin-right:70px;">
