@@ -16,6 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+
 package com.fetchdroid
 
 import android.content.Context
@@ -23,7 +24,10 @@ import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
 
-object Ringer {
+object Ringer  {
+
+    var curVol = 0
+
 
     private var mediaPlayer: MediaPlayer? = null
     var isPlaying: Boolean = false
@@ -33,6 +37,8 @@ object Ringer {
         if (isPlaying) return
 
         val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+        curVol = currentVolume
         val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0)
 
@@ -50,9 +56,11 @@ object Ringer {
         isPlaying = true
     }
 
-    fun stop() {
+    fun stop(context: Context) {
         mediaPlayer?.apply {
             stop()
+            val tmpmgr = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            tmpmgr.setStreamVolume(AudioManager.STREAM_MUSIC,curVol,0)
             release()
         }
         mediaPlayer = null
