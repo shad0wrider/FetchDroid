@@ -66,11 +66,11 @@ class SmsReceiver : BroadcastReceiver() {
                 Thread{
                     Ringer.start(context)
                     Thread.sleep(ringTime.toLong())
-                    Ringer.stop()
+                    Ringer.stop(context)
                 }
             }
             else if (body == "$ringWord stop"){
-                Ringer.stop()
+                Ringer.stop(context)
             }
         }
     }
