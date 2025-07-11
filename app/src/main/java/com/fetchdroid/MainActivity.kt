@@ -280,7 +280,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 MotionEvent.ACTION_UP -> {
                     // Button released or finger dragged off
-                    Ringer.stop()
+                    Ringer.stop(this)
                     true
                 }
                 else -> false
@@ -311,7 +311,7 @@ class MainActivity : AppCompatActivity() {
 
         //Stop Ringing Button
         stopRing.setOnClickListener {
-            Ringer.stop()
+            Ringer.stop(this)
             Toast.makeText(this,"Ringing Stopped",Toast.LENGTH_SHORT).show()
         }
 
