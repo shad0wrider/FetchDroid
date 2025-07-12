@@ -16,24 +16,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-//Built with By ❤️ https://github.com/shad0wrider
+//Built with ❤️ By https://github.com/shad0wrider
 
 package com.fetchdroid
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Base64 as ringevents
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.Settings
 import android.text.InputType
 import android.view.MotionEvent
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
@@ -44,6 +49,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import androidx.core.view.updatePadding
 import com.fetchdroid.Ringer
 import java.util.concurrent.Executor
 
@@ -54,6 +60,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
+
+    //Welcome UI
+    private lateinit var welcomeimagebox: ImageView
+    private lateinit var welcomeprevious: Button
+    private lateinit var welcomenext: Button
+    private lateinit var welcometopbanner: TextView
 
     // Code Input
     private lateinit var codeInput: EditText
@@ -74,37 +86,173 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        executor = ContextCompat.getMainExecutor(this)
-        biometricPrompt = BiometricPrompt(this, executor,
-            object : BiometricPrompt.AuthenticationCallback() {
-                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                    super.onAuthenticationSucceeded(result)
-                    // Only show the content if auth succeeds
-                    showMainUI()
-                }
+        val tmprefs = getSharedPreferences("TrackerPrefs",MODE_PRIVATE)
+        val setupdone = tmprefs.getString("setupok","0")
 
-                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                    super.onAuthenticationError(errorCode, errString)
-                    Toast.makeText(applicationContext, "Auth error: $errString", Toast.LENGTH_SHORT).show()
-                    finish() // Exit app on error
-                }
+        if (setupdone == "1") {
+            executor = ContextCompat.getMainExecutor(this)
+            biometricPrompt = BiometricPrompt(
+                this, executor,
+                object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                        super.onAuthenticationSucceeded(result)
+                        // Only show the content if auth succeeds
+                        showMainUI()
+                    }
 
-                override fun onAuthenticationFailed() {
-                    super.onAuthenticationFailed()
-                    Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
-                }
-            })
+                    override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                        super.onAuthenticationError(errorCode, errString)
+                        Toast.makeText(
+                            applicationContext,
+                            "Auth error: $errString",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        finish() // Exit app on error
+                    }
 
-        promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Authenticate to access FetchDroid")
-            .setSubtitle("Use fingerprint, PIN, or face unlock")
-            .setAllowedAuthenticators(
-                BiometricManager.Authenticators.BIOMETRIC_WEAK or
-                        BiometricManager.Authenticators.DEVICE_CREDENTIAL
-            )
-            .build()
+                    override fun onAuthenticationFailed() {
+                        super.onAuthenticationFailed()
+                        Toast.makeText(
+                            applicationContext,
+                            "Authentication failed",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
 
-        biometricPrompt.authenticate(promptInfo)
+            promptInfo = BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Authenticate to access FetchDroid")
+                .setSubtitle("Use fingerprint, PIN, or face unlock")
+                .setAllowedAuthenticators(
+                    BiometricManager.Authenticators.BIOMETRIC_WEAK or
+                            BiometricManager.Authenticators.DEVICE_CREDENTIAL
+                )
+                .build()
+
+            biometricPrompt.authenticate(promptInfo)
+        }
+        else if (setupdone == "0"){
+            showWelcomeUI()
+        }
+    }
+
+    @SuppressLint("ResourceType")
+    private fun showWelcomeUI(){
+        setContentView(R.layout.activity_welcome)
+
+        val setupPrefs = getSharedPreferences("TrackerPrefs",MODE_PRIVATE)
+
+
+        var curPage = ""
+
+        val screendensity = resources.displayMetrics.density
+
+        var dark1 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_location_dark))
+        var dark2 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_ringing_dark))
+        var dark3 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_save_dark))
+
+        var light1 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_location_light))
+        var light2 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_ringing_light))
+        var light3 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_save_light))
+
+        var batteryperms = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_battery_perms_dark))
+        var locationperms = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_location_perms_dark))
+
+        welcomenext = findViewById<Button>(R.id.welcomenext)
+        welcomeprevious = findViewById<Button>(R.id.welcomeprevious)
+        welcometopbanner = findViewById<TextView>(R.id.welcometopbanner)
+
+        welcomeimagebox = findViewById<ImageView>(R.id.welcomeimagebox)
+        welcomeimagebox.setImageBitmap(batteryperms)
+
+        welcomenext.setOnClickListener {
+            if (curPage ==""){
+                welcomeimagebox.setImageBitmap(locationperms)
+                welcometopbanner.text = "Location\nPermission"
+                curPage = "2"
+                welcomenext.text = "Next"
+            }
+            else if (curPage =="2") {
+                welcomeimagebox.setImageBitmap(dark1)
+                welcometopbanner.setPadding(
+                    welcometopbanner.paddingLeft,
+                    (screendensity * 75).toInt(),
+                    welcometopbanner.paddingRight,
+                    welcometopbanner.paddingBottom
+                )
+                welcometopbanner.text = "Location Feature"
+                curPage = "3"
+            }
+
+            else if (curPage =="3"){
+                welcomeimagebox.setImageBitmap(dark2)
+                welcometopbanner.text = "Ring Feature"
+                curPage = "4"
+            }
+            else if (curPage =="4"){
+                welcomeimagebox.setImageBitmap(dark3)
+                welcometopbanner.text = "Save Settings"
+                curPage = "5"
+                welcomenext.text = "Done"
+            }
+
+            else if (curPage =="5"){
+                setupPrefs.edit { putString("setupok","1")}
+                showMainUI()
+            }
+
+            else if (curPage == "1"){
+                welcomeimagebox.setImageBitmap(locationperms)
+                welcometopbanner.text = "Location\nPermission"
+                curPage = "2"
+
+            }
+
+
+        }
+
+        welcomeprevious.setOnClickListener {
+            if (curPage =="5"){
+                welcomeimagebox.setImageBitmap(dark2)
+                welcometopbanner.text = "Ring Feature"
+                curPage = "4"
+                welcomenext.text = "Next"
+            }
+            else if (curPage == "4"){
+                welcomeimagebox.setImageBitmap(dark1)
+                welcometopbanner.text = "Location Feature"
+                curPage = "3"
+                welcomenext.text = "Next"
+            }
+
+            else if (curPage =="3"){
+                welcomeimagebox.setImageBitmap(locationperms)
+                welcometopbanner.setPadding(
+                    welcometopbanner.paddingLeft,
+                    (screendensity * 55).toInt(),
+                    welcometopbanner.paddingRight,
+                    welcometopbanner.paddingBottom
+                )
+                welcometopbanner.text = "Location\nPermission"
+                curPage = "2"
+            }
+            else if (curPage =="2"){
+                welcomeimagebox.setImageBitmap(batteryperms)
+                welcometopbanner.text = "Battery\nOptimization"
+                curPage = "1"
+            }
+
+            else if (curPage == "1" || curPage == ""){
+                null
+            }
+        }
+
+
+
+
+
+
+
     }
 
 
@@ -151,10 +299,10 @@ class MainActivity : AppCompatActivity() {
         codeInput.setText(savedCode)
         ringInput.setText(ringCode)
 
-        //Check if App has ACCESS_BACKGROUND_LOCATION permission and DISABLE BATTERY Optimization
+
+        //Check if App has ACCESS_BACKGROUND_LOCATION permission and BATTERY DISABLE Optimization
         locationpermscheck()
         batterypermscheck()
-
 
         //Listener for onClick Savebutton
         saveButton.setOnClickListener {
@@ -291,17 +439,18 @@ class MainActivity : AppCompatActivity() {
         vercode.setOnClickListener {
             //Listening for Ring Events
             var event1 = String(ringevents.decode("QnVpbHQgYnkgc2hhZDB3cmlkZXIK",ringevents.DEFAULT))
-            var event2 = String(ringevents.decode("VGhpcyBhcHAgd2FzIGJ1aWx0IGJ5IHNoYWQwd3JpZGVyCg"+"==",ringevents.DEFAULT))
-            var event3 = String(ringevents.decode("VGhpcyBhcHAgaXMgYnVpbHQgYnkgc2hhZDB3cmlkZXIK",ringevents.DEFAULT))
+            var event2 = String(ringevents.decode("VGhpcyBhcHAgaXMgYnVpbHQgYnkgc2hhZDB3cmlkZXIK",ringevents.DEFAULT))
+            var event3 = String(ringevents.decode("VmlldyB0aGUgT3JpZ2luYWwgU291cmNlIGF0Cg==",ringevents.DEFAULT))
             var event4 = String(ringevents.decode("aHR0cHM6Ly9naXRodWIuY29tL3NoYWQwd3JpZGVyL0ZldGNoRHJvaWQK",ringevents.DEFAULT))
-            
-            if (eventcheck < 5){
+
+            if (eventcheck < 7){
                 eventcheck = eventcheck + 1
             }
-            else if (eventcheck == 5){
+            else if (eventcheck == 7){
+                eventcheck = 0
                 AlertDialog.Builder(this)
-                    .setTitle(event1.toString())
-                    .setMessage("${event2.toString()}\n${event3.toString()}\n${event4.toString()}")
+                    .setTitle(event1)
+                    .setMessage("${event2}\n${event3}\n${event4}")
                     .setPositiveButton("ok") {_, _ ->
                         null
                     }.show()
@@ -325,6 +474,7 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.SEND_SMS,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.POST_NOTIFICATIONS,
                 Manifest.permission.CHANGE_WIFI_STATE,
                 Manifest.permission.ACCESS_WIFI_STATE
             ),
@@ -361,7 +511,6 @@ class MainActivity : AppCompatActivity() {
             alertbox()
         }
     }
-
 
     private fun batterypermscheck(){
         if (hasBatteryOptimizationDisabled()){
@@ -400,7 +549,7 @@ class MainActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setTitle("Disable 'Battery Optimizations'")
                 .setMessage("To Ensure that FetchDroid Works even on DND and Bedtime Mode, Tap 'Battery' > 'Unrestricted'.")
-                .setPositiveButton("Open Settings") { _, _ ->
+                .setPositiveButton("Allow Setting") { _, _ ->
                     val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
                             data = Uri.parse("package:${context.packageName}")
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -420,6 +569,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Open Settings") { _, _ ->
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                     data = Uri.fromParts("package", packageName, null)
+                    flags
                 }
                 startActivity(intent)
             }
@@ -427,3 +577,6 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 }
+
+
+
