@@ -1,0 +1,41 @@
+
+
+<resources>
+    <string name="app_name">fetchdroid</string>
+    <string name="why_these_permissions">Why These Permissions?</string>
+    <string name="sourcecode">View Source Code on Github</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="stop_ringing">Stop\nRinging</string>
+    <string name="test_ringing">Test\nRinging</string>
+    <string name="enter_codeword_for_ringing">Ring CodeWord</string>
+    <string name="enter_codeword_for_location">Location CodeWord</string>
+    <string name="location_codeword_input_field">Location CodeWord Input Field</string>
+    <string name="seek_bar_description">Sets Ring Time in seconds after ring triggered</string>
+    <string name="test_ring_description">Press and Hold to Test Ring Loudness Button</string>
+    <string name="test_nringing">Test\nRinging</string>
+    <string name="stop_ring_description">Stop ringing Button After Ring Triggered</string>
+    <string name="save_current_settings_description">Save the current Settings Button</string>
+    <string name="why_perms_description">Button that takes you to Privacy Policy Page</string>
+    <string name="souce_code_description">Button that takes you to Source Code for the app</string>
+    <string name="viewpager_description">Image View Slider For App Instruction Images</string>
+    <string name="tablayout_description">Tab Layout Button For Each Image</string>
+    <string name="image_button_1">Image Button 1</string>
+    <string name="image_button_2">Image Button 2</string>
+    <string name="image_button_3">Image Button 3</string>
+    <string name="image_button_4">Image Button 4</string>
+    <string name="image_button_5">Image Button 5</string>
+    <string name="image_button_6">Image Button 6</string>
+    <string name="image_button_7">Image Button 7</string>
+    <string name="image_button_8">Image Button 8</string>
+    <string name="image_button_9">Image Button 9</string>
+    <string name="welcome_done_description">Done Button , Clicking Takes you to Main UI</string>
+    <string name="cardview_description">Displaying Image in Card Like Format</string>
+    <string name="dot_view_description">The Dot UI indicating which welcome image is being viewed</string>
+    <string name="ring_bar_seconds">Ring For: 20 Seconds</string>
+    <string name="welcome_done_button">Done</string>
+    <string name="takes_your_to_help_menu">Takes your to Help Menu</string>
+    <string name="help_menu">Help Menu</string>
+    <string name="image_button_10">Image Button 10</string>
+    <string name="app_version_code">Version: 1.16</string>
+    <string name="takes_you_to_help_menu">Takes you to help menu</string>
+</resources>
