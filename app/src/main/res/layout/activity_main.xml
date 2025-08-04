@@ -1,112 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+
+<ScrollView
+    android:id="@+id/scroller"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fitsSystemWindows="true"
+    android:scrollbars="vertical"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:paddingBottom="30dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mainparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:maxHeight="2408dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="14dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+    >
+
 
 
     <EditText
         android:id="@+id/codeInput"
-        android:layout_width="361dp"
-        android:layout_height="66dp"
-        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="66dip"
         android:drawableEnd="@drawable/invisible_eye"
         android:hint="@string/enter_codeword_for_location"
         android:inputType="textPassword"
-        android:paddingStart="5dp"
-        android:paddingEnd="27dp"
+        android:drawablePadding="25dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:scrollHorizontally="false"
+        />
 
     <EditText
         android:id="@+id/ringInput"
-        android:layout_width="361dp"
-        android:layout_height="66dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="66dip"
+        android:layout_marginTop="85dp"
         android:drawableEnd="@drawable/invisible_eye"
+        android:drawablePadding="25dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:hint="@string/enter_codeword_for_ringing"
         android:inputType="textPassword"
-        android:paddingStart="5dp"
-        android:paddingEnd="27dp"
+        android:textAlignment="center"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        android:scrollHorizontally="false"
+        />
 
 
     <SeekBar
         android:id="@+id/ringTime"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="38dp"
         android:layout_marginTop="228dp"
         android:max="4"
         android:progress="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/seek_bar_description"/>
 
     <TextView
         android:id="@+id/ringTimeBar"
-        android:layout_width="299dp"
+        android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:layout_marginTop="168dp"
-        android:text="Ring For: 20 Seconds "
+        android:layout_marginTop="172dp"
+        android:text="@string/ring_bar_seconds"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:labelFor="@id/ringTime"/>
 
     <Button
         android:id="@+id/testRing"
-        android:layout_width="113dp"
-        android:layout_height="58dp"
-        android:text="@string/test_ringing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/test_nringing"
         android:textAlignment="center"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@id/stopRing"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        app:layout_constraintVertical_bias="0.834" />
+        app:layout_constraintTop_toBottomOf="@id/ringTime"
+        app:layout_constraintVertical_bias="0.4"
+        android:contentDescription="@string/test_ring_description"/>
 
     <Button
         android:id="@+id/stopRing"
-        android:layout_width="113dp"
-        android:layout_height="58dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="307dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginBottom="72dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="56dp"
+        android:padding="10dp"
+        android:layout_marginStart="15dp"
+        android:gravity="center"
         android:text="@string/stop_ringing"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.214" />
+        app:layout_constraintStart_toEndOf="@id/testRing"
+        app:layout_constraintTop_toBottomOf="@id/ringTime"
+        app:layout_constraintVertical_bias="0.4"
+        android:contentDescription="@string/stop_ring_description"/>
 
     <Button
-        android:id="@+id/saveButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="424dp"
-        android:text="@string/save_settings"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="424dp"
+            android:text="@string/save_settings"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/save_current_settings_description"/>
 
     <Button
         android:id="@+id/whyperms"
@@ -118,32 +158,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/why_perms_description"/>
 
     <Button
         android:id="@+id/sourcecode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="608dp"
-        android:text="@string/sourcecode"
+        android:text="@string/help_menu"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/takes_you_to_help_menu"/>
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="159dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="92dp"
-        android:hint="Version: 1.7"
+        android:id="@+id/vercode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="@string/app_version_code"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sourcecode"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@id/sourcecode"
+        />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+  </LinearLayout>
+</ScrollView>
