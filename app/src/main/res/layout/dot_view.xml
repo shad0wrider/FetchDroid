@@ -1,0 +1,7 @@
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab_dot"
+    android:layout_width="10dp"
+    android:layout_height="10dp"
+    android:layout_gravity="center"
+    android:contentDescription="@string/dot_view_description"
+/>
