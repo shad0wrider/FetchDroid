@@ -26,32 +26,46 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.util.Base64 as ringevents
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
 import android.text.InputType
+import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
-import com.fetchdroid.Ringer
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import java.util.concurrent.Executor
+import kotlin.math.abs
+import android.util.Base64 as ringevents
 
 
 class MainActivity : AppCompatActivity() {
@@ -67,7 +81,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var welcomenext: Button
     private lateinit var welcometopbanner: TextView
 
-    // Code Input
+    private lateinit var viewPager: ViewPager2
+    private lateinit var tabLayout: TabLayout
+    private lateinit var donebutton: Button
+
+    // Main UI
     private lateinit var codeInput: EditText
     private lateinit var ringInput: EditText
     private lateinit var ringTime: SeekBar
@@ -75,6 +93,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var saveButton: Button
     private lateinit var testRing: Button
     private lateinit var stopRing: Button
+    private lateinit var mainparent: ConstraintLayout
 
     private val PREFS_NAME = "TrackerPrefs"
     private val CODE_KEY = "codeWord"
@@ -85,6 +104,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        hideSystemUI()
+
+//        window.insetsController?.hide(WindowInsets.Type.navigationBars());
 
         val tmprefs = getSharedPreferences("TrackerPrefs",MODE_PRIVATE)
         val setupdone = tmprefs.getString("setupok","0")
@@ -137,123 +159,82 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("ResourceType")
-    private fun showWelcomeUI(){
+    private fun showWelcomeUI() {
         setContentView(R.layout.activity_welcome)
 
-        val setupPrefs = getSharedPreferences("TrackerPrefs",MODE_PRIVATE)
+        //Initialize Settings Reader
+
+        val setprefs = getSharedPreferences("TrackerPrefs",MODE_PRIVATE)
 
 
-        var curPage = ""
+        // Get the ViewPager2 reference
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        val tabLayout = findViewById<TabLayout>(R.id.tablayer)
+        val donebutton = findViewById<Button>(R.id.donebutton)
 
-        val screendensity = resources.displayMetrics.density
+        // Set the adapter for the ViewPager2
+        val adapter = ViewRunner(this)
+        viewPager.adapter = adapter
 
-        var dark1 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_location_dark))
-        var dark2 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_ringing_dark))
-        var dark3 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_save_dark))
-
-        var light1 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_location_light))
-        var light2 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_ringing_light))
-        var light3 = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_save_light))
-
-        var batteryperms = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_battery_perms_dark))
-        var locationperms = BitmapFactory.decodeStream(resources.openRawResource(R.raw.welcome_location_perms_dark))
-
-        welcomenext = findViewById<Button>(R.id.welcomenext)
-        welcomeprevious = findViewById<Button>(R.id.welcomeprevious)
-        welcometopbanner = findViewById<TextView>(R.id.welcometopbanner)
-
-        welcomeimagebox = findViewById<ImageView>(R.id.welcomeimagebox)
-        welcomeimagebox.setImageBitmap(batteryperms)
-
-        welcomenext.setOnClickListener {
-            if (curPage ==""){
-                welcomeimagebox.setImageBitmap(locationperms)
-                welcometopbanner.text = "Location\nPermission"
-                curPage = "2"
-                welcomenext.text = "Next"
+        val transformer = CompositePageTransformer().apply {
+            addTransformer(MarginPageTransformer(40))
+            addTransformer { page, position ->
+                page.scaleY = 0.85f + (1 - abs(position)) * 0.15f
             }
-            else if (curPage =="2") {
-                welcomeimagebox.setImageBitmap(dark1)
-                welcometopbanner.setPadding(
-                    welcometopbanner.paddingLeft,
-                    (screendensity * 75).toInt(),
-                    welcometopbanner.paddingRight,
-                    welcometopbanner.paddingBottom
-                )
-                welcometopbanner.text = "Location Feature"
-                curPage = "3"
-            }
+        }
+        viewPager.setPageTransformer(transformer)
 
-            else if (curPage =="3"){
-                welcomeimagebox.setImageBitmap(dark2)
-                welcometopbanner.text = "Ring Feature"
-                curPage = "4"
-            }
-            else if (curPage =="4"){
-                welcomeimagebox.setImageBitmap(dark3)
-                welcometopbanner.text = "Save Settings"
-                curPage = "5"
-                welcomenext.text = "Done"
-            }
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            val tabView = LayoutInflater.from(this).inflate(R.layout.dot_view, null)
+            tab.customView = tabView
+        }.attach()
 
-            else if (curPage =="5"){
-                setupPrefs.edit { putString("setupok","1")}
+        fun updateTabDots(selectedPosition: Int) {
+            for (i in 0 until tabLayout.tabCount) {
+                val tab = tabLayout.getTabAt(i)
+                val dot = tab?.customView?.findViewById<ImageView>(R.id.tab_dot)
+                dot?.setImageResource(if (i == selectedPosition) R.drawable.dot else R.drawable.unselected_dot)
+            }
+        }
+
+        updateTabDots(0)
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                updateTabDots(position)
+
+                if (position ==9){
+                    tabLayout.visibility = View.INVISIBLE
+                    donebutton.visibility = View.VISIBLE
+                }
+                else {
+                    tabLayout.visibility = View.VISIBLE
+                    donebutton.visibility = View.INVISIBLE
+                }
+            }
+        })
+
+        donebutton.setOnClickListener {
+            var chkprefs = setprefs.getString("setupok","0")
+
+            if (chkprefs =="1"){
                 showMainUI()
             }
-
-            else if (curPage == "1"){
-                welcomeimagebox.setImageBitmap(locationperms)
-                welcometopbanner.text = "Location\nPermission"
-                curPage = "2"
-
-            }
-
-
-        }
-
-        welcomeprevious.setOnClickListener {
-            if (curPage =="5"){
-                welcomeimagebox.setImageBitmap(dark2)
-                welcometopbanner.text = "Ring Feature"
-                curPage = "4"
-                welcomenext.text = "Next"
-            }
-            else if (curPage == "4"){
-                welcomeimagebox.setImageBitmap(dark1)
-                welcometopbanner.text = "Location Feature"
-                curPage = "3"
-                welcomenext.text = "Next"
-            }
-
-            else if (curPage =="3"){
-                welcomeimagebox.setImageBitmap(locationperms)
-                welcometopbanner.setPadding(
-                    welcometopbanner.paddingLeft,
-                    (screendensity * 55).toInt(),
-                    welcometopbanner.paddingRight,
-                    welcometopbanner.paddingBottom
-                )
-                welcometopbanner.text = "Location\nPermission"
-                curPage = "2"
-            }
-            else if (curPage =="2"){
-                welcomeimagebox.setImageBitmap(batteryperms)
-                welcometopbanner.text = "Battery\nOptimization"
-                curPage = "1"
-            }
-
-            else if (curPage == "1" || curPage == ""){
-                null
+            else {
+                setprefs.edit {
+                    putString("setupok","1")
+                }
+                showMainUI()
             }
         }
 
 
-
-
-
-
+        setViewPagerHeight(viewPager, R.raw.welcome_battery_perms_dark)
 
     }
+
+
+
 
 
     @SuppressLint("ClickableViewAccessibility", "MissingInflatedId")
@@ -265,6 +246,8 @@ class MainActivity : AppCompatActivity() {
 //        )
 
         setContentView(R.layout.activity_main)
+
+        gestureToast()
 
         codeInput = findViewById(R.id.codeInput)
         ringInput = findViewById<EditText>(R.id.ringInput)
@@ -324,16 +307,15 @@ class MainActivity : AppCompatActivity() {
         }
         //Sourcecode setOnClick Listener
         sourcecode.setOnClickListener {
-            val urlIntent = Intent(Intent.ACTION_VIEW,
-                "https://github.com/shad0wrider/FetchDroid".toUri())
-            startActivity(urlIntent)
+//            val urlIntent = Intent(Intent.ACTION_VIEW,
+//                "https://github.com/shad0wrider/FetchDroid".toUri())
+//            startActivity(urlIntent)
+            showWelcomeUI()
         }
         // permsbutton setonClick Listener
         permsbutton.setOnClickListener {
             AlertDialog.Builder(this).setTitle("Why FetchDroid Needs these Permissions")
-                .setMessage("""Ability to Access Background Location and SMS are part of FetchDroid's Core Functionality
-                    read more at the Projects Privacy Policy Page                    
-                """.trimMargin())
+                .setMessage("""Permission to Access Background Location and SMS are part of FetchDroid's Core Functionality read more at the Projects Privacy Policy Page""".trimMargin())
                 .setPositiveButton("Read Privacy Policy"){ _, _ ->
                      val urlIntent = Intent(Intent.ACTION_VIEW,
                             "https://github.com/shad0wrider/FetchDroid/blob/main/PRIVACY.md".toUri())
@@ -420,15 +402,18 @@ class MainActivity : AppCompatActivity() {
 
         //Test Ring Touch Listener
         testRing.setOnTouchListener { _, event ->
+            var ringtoast = Toast.makeText(this,"Press and Hold to ring , Release to Stop",Toast.LENGTH_LONG)
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     // Button pressed
+                    ringtoast.show()
                     Ringer.start(this)
                     true
                 }
                 MotionEvent.ACTION_UP -> {
                     // Button released or finger dragged off
                     Ringer.stop(this)
+                    ringtoast.cancel()
                     true
                 }
                 else -> false
@@ -576,6 +561,56 @@ class MainActivity : AppCompatActivity() {
             .setNegativeButton("Cancel", null)
             .show()
     }
+
+
+    private fun setViewPagerHeight(viewPager: ViewPager2,imageResId: Int){
+        try{
+            val inputStream = resources.openRawResource(imageResId)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+
+            val aspectratio = bitmap.width.toFloat() / bitmap.height.toFloat()
+
+            val width = resources.displayMetrics.widthPixels
+            val newheight = (width / aspectratio).toInt()
+
+            val layoutParams = viewPager.layoutParams
+            layoutParams.height = newheight
+            viewPager.layoutParams = layoutParams
+        } catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    private fun hideSystemUI() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window,
+            window.decorView.findViewById(android.R.id.content)).let { controller ->
+            controller.hide(WindowInsetsCompat.Type.navigationBars())
+
+            // When the screen is swiped up at the bottom
+            // of the application, the navigationBar shall
+            // appear for some time
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
+    private fun getBarHeight() : Int {
+
+
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        // For Android 11 (API 30) and above
+        val insets = window.decorView.rootView.rootWindowInsets
+        insets?.getInsets(WindowInsets.Type.navigationBars())?.bottom ?: 0
+        } else {
+            0 
+        }
+    }
+
+    private fun gestureToast(){
+
+        Toast.makeText(this,"Navigation Bars are Hidden\nswipe up from bottom edge \nto show",Toast.LENGTH_LONG).show()
+    }
+
 }
 
 
