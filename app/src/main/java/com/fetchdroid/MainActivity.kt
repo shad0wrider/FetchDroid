@@ -58,11 +58,15 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
+import androidx.fragment.app.FragmentContainerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.dialog.MaterialDialogs
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.transition.MaterialFade
 import java.util.concurrent.Executor
 import kotlin.math.abs
 import android.util.Base64 as ringevents
@@ -175,6 +179,13 @@ class MainActivity : AppCompatActivity() {
         // Set the adapter for the ViewPager2
         val adapter = ViewRunner(this)
         viewPager.adapter = adapter
+
+
+        // Show Permissions Used by FetchDroid Dialog
+        if (setprefs.getString("setupok","0") == "0"){
+            permsused()
+        }
+
 
         val transformer = CompositePageTransformer().apply {
             addTransformer(MarginPageTransformer(40))
@@ -314,8 +325,15 @@ class MainActivity : AppCompatActivity() {
         }
         // permsbutton setonClick Listener
         permsbutton.setOnClickListener {
-            AlertDialog.Builder(this).setTitle("Why FetchDroid Needs these Permissions")
-                .setMessage("""Permission to Access Background Location and SMS are part of FetchDroid's Core Functionality read more at the Projects Privacy Policy Page""".trimMargin())
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Why FetchDroid Needs these Permissions")
+                .setMessage("""|Permission to Access Background Location and SMS are part of FetchDroid's Core Functionality.
+                    |
+                    |It Needs these permissions to Scan For SMS messages containing CodeWords
+                    |
+                    |The Content of your SMS messages are never collected or shared.
+                    |
+                    |Read more at the Projects Privacy Policy Page""".trimMargin())
                 .setPositiveButton("Read Privacy Policy"){ _, _ ->
                      val urlIntent = Intent(Intent.ACTION_VIEW,
                             "https://github.com/shad0wrider/FetchDroid/blob/main/PRIVACY.md".toUri())
@@ -403,17 +421,23 @@ class MainActivity : AppCompatActivity() {
         //Test Ring Touch Listener
         testRing.setOnTouchListener { _, event ->
             var ringtoast = Toast.makeText(this,"Press and Hold to ring , Release to Stop",Toast.LENGTH_LONG)
+            var showing = 0
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     // Button pressed
-                    ringtoast.show()
+                    if (showing == 0){
+                        showing = 1
+                        ringtoast.show()
+                    }
                     Ringer.start(this)
                     true
                 }
                 MotionEvent.ACTION_UP -> {
                     // Button released or finger dragged off
                     Ringer.stop(this)
+
                     ringtoast.cancel()
+                    showing = 0
                     true
                 }
                 else -> false
@@ -433,10 +457,10 @@ class MainActivity : AppCompatActivity() {
             }
             else if (eventcheck == 7){
                 eventcheck = 0
-                AlertDialog.Builder(this)
+                MaterialAlertDialogBuilder(this)
                     .setTitle(event1)
                     .setMessage("${event2}\n${event3}\n${event4}")
-                    .setPositiveButton("ok") {_, _ ->
+                    .setPositiveButton("OK") {_, _ ->
                         null
                     }.show()
 
@@ -531,9 +555,17 @@ class MainActivity : AppCompatActivity() {
     private fun batterybox(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             var context = this
-            AlertDialog.Builder(this)
+            MaterialAlertDialogBuilder(this)
                 .setTitle("Disable 'Battery Optimizations'")
-                .setMessage("To Ensure that FetchDroid Works even on DND and Bedtime Mode, Tap 'Battery' > 'Unrestricted'.")
+                .setMessage("""To Ensure that FetchDroid Works even on DND and Bedtime Mode.
+                    |
+                    |Tap 'Battery' > 'Unrestricted'.
+                    |
+                    |OR
+                    |
+                    |Press 'ALLOW'
+                    |
+                    |Depending on the Prompt.""".trimMargin())
                 .setPositiveButton("Allow Setting") { _, _ ->
                     val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
                             data = Uri.parse("package:${context.packageName}")
@@ -548,9 +580,11 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun alertbox(){
-        AlertDialog.Builder(this)
+        MaterialAlertDialogBuilder(this)
             .setTitle("Enable 'Allow all the time'")
-            .setMessage("To ensure FetchDroid works Properly, tap 'Permissions' > 'Location' > 'Allow all the time'.")
+            .setMessage("""|To ensure FetchDroid works Properly. 
+                |
+                |tap 'Permissions' > 'Location' > 'Allow all the time'.""".trimMargin())
             .setPositiveButton("Open Settings") { _, _ ->
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                     data = Uri.fromParts("package", packageName, null)
@@ -581,6 +615,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun permsused(){
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Permissions Used By FetchDroid")
+            .setMessage("""|FetchDroid uses background location and Scans SMS messages for CodeWords.
+                          |
+                          |The content of Your SMS messages are never shared or collected.
+                          |
+                          |The app Triggers Functions like Locate and Ring Based on the CodeWord.
+                          |
+                          |If found in any SMS message.""".trimMargin())
+            .setPositiveButton("OK",null)
+            .setNegativeButton("CANCEL",null)
+            .show()
+    }
+
     private fun hideSystemUI() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowInsetsControllerCompat(window,
@@ -602,7 +651,7 @@ class MainActivity : AppCompatActivity() {
         val insets = window.decorView.rootView.rootWindowInsets
         insets?.getInsets(WindowInsets.Type.navigationBars())?.bottom ?: 0
         } else {
-            0 
+            0 // No need for legacy handling
         }
     }
 
