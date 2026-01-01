@@ -15,6 +15,8 @@
  
   <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/feature1v2.png" width="200"/>
 
+  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/3.png" width="200"/>
+
   <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/feature4.png" width="200"/>
   
   <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/ringfeature.png" width="200"/>
