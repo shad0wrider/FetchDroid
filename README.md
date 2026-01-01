@@ -19,7 +19,7 @@
 
   <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/feature4.png"/>
   
-  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/ringfeature.png" width="200"/>
+  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/ringfeature.png"/>
 </p>
 Lost your Phone? , No Problem , we have Find my Device
 
