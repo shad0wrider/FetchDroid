@@ -11,9 +11,9 @@
 
 <br>
 <p align="center" style="margin-right:70px;">
-  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/2.png" width="200"/>
+  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/2.png"/>
  
-  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/feature1v2.png" width="200"/>
+  <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/feature1v2.png"/>
 
   <img src="https://raw.githubusercontent.com/shad0wrider/FetchDroid/refs/heads/main/assets/3.png"/>
 
